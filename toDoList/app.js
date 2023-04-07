@@ -185,7 +185,7 @@ app.get("/work", function(req,res){
 app.get("/about", function(req, res){
   res.render("about");
 });
-port = process.env.PORT
-app.listen(port || 3000, function() {
+
+app.listen($PORT, function() {
   console.log("Server started on port 3000");
 });
