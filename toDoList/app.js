@@ -13,9 +13,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://aag9131:hBF4Wn1al9kRwX2Z@cluster0.kfta6pw.mongodb.net/toDo");
-
-console.log("Here");
+mongoose.connect(process.env.CONNECTION_STRING);
 
 const itemSchema = new mongoose.Schema({
   name: String
@@ -49,22 +47,10 @@ async function findList(listName){
 }
 
 async function addToList(listName, newItem){
-  // var items=[];
-  // await List.findOne({name: listName}).then(function(foundList){
-  //   items=foundList.items;
-  // })
-
-  // items.push(newItem)
   const foundList = await List.findOneAndUpdate({name:listName}, {$push : {items: newItem}}).lean();
 }
 
 async function removeFromList(listName, item_id){
-  // var items=[];
-  // await List.findOne({name: listName}).then(function(foundList){
-  //   items=foundList.items;
-  // })
-  
-  // items.push(newItem)
   const foundList = await List.findOneAndUpdate({name:listName}, {$pull : {items:{_id : item_id}}}).lean();
 }
 
